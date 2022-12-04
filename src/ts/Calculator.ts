@@ -38,7 +38,7 @@ export class Calculator{
 
     public appendComma(){
         let lastOperand = this.operands[this.operands.length - 1]
-        
+
         if(lastOperand?.type === 'number' && lastOperand?.value.charAt(lastOperand?.value?.length-1) != '.'){
             lastOperand.value += '.'
         }
@@ -80,7 +80,7 @@ export class Calculator{
 
         if(previousOperand !== null){
             this.previousOperands = this.operands;
-            this.operands = new Array({type: 'number', value: previousOperand.toString()})
+            this.operands = new Array({type: 'number', value: (previousOperand as number).toString()})
         }
     }
 
