@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../../fonts/Inter-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 15px;
+}
+
+.button {
+  min-width: 70px;
+  height: 70px;
+  font-size: 2.8rem;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 5px 5px 10px 0px rgba(117, 127, 138, 0.5019607843), -5px -5px 10px 0px rgba(255, 255, 255, 0.5019607843);
+}
+.button--muted {
+  color: rgba(117, 127, 138, 0.5019607843);
+}
+.button--orange {
+  color: #FD8016;
+}
+.button--wide {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-radius: 50px;
+  width: auto;
+  box-shadow: 5px 5px 10px -2px rgba(117, 127, 138, 0.5019607843) inset, -5px -5px 10px -2px rgba(255, 255, 255, 0.5019607843) inset;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 30px;
+  align-items: flex-end;
+}
+.screen__history, .screen__previous {
+  font-size: 2.5rem;
+  color: #6e6e6e;
+}
+.screen__previous--active {
+  font-size: 5rem;
+}
+.screen__history {
+  margin-bottom: 20px;
+}
+.screen__current {
+  font-size: 5rem;
+}
+.screen__current--muted {
+  font-size: 2.5rem;
+}
+.screen__precompute {
+  font-size: 2rem;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.calculator {
+  width: 100%;
+  height: 100vh;
+  background-color: #EFEFEF;
+  margin: auto;
+  padding: 25px;
+  border-radius: 15px;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,33 @@
+.screen{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 30px;
+    align-items: flex-end;
+
+    &__history, &__previous{
+        font-size: 2.5rem;
+        color: #6e6e6e;
+    }
+
+    &__previous--active{
+        font-size: 5rem;
+    }
+    
+    &__history{
+        margin-bottom: 20px;
+    }
+
+    &__current{
+        font-size: 5rem;
+    }
+
+    &__current--muted{
+        font-size: 2.5rem;
+    }
+
+    &__precompute{
+        font-size: 2rem;
+    }
+}

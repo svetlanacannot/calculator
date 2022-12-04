@@ -1,0 +1,32 @@
+.keyboard{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.button {
+    min-width: 70px;
+    height: 70px;
+    font-size: 2.8rem;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px 0px #757F8A80, -5px -5px 10px 0px #FFFFFF80;
+
+
+
+    &--muted{
+        color: #757F8A80;
+    }
+
+    &--orange{
+        color: #FD8016;
+    }
+
+    &--wide{
+        grid-column-start: 1;
+        grid-column-end: 3;
+        border-radius: 50px;
+        width: auto;
+        box-shadow: 5px 5px 10px -2px #757F8A80 inset, -5px -5px 10px -2px #FFFFFF80 inset;
+    }
+}
