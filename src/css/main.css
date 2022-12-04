@@ -52,24 +52,19 @@ body {
   padding-bottom: 30px;
   align-items: flex-end;
 }
-.screen__history, .screen__previous {
+.screen__previous {
   font-size: 2.5rem;
   color: #6e6e6e;
 }
 .screen__previous--active {
   font-size: 5rem;
 }
-.screen__history {
-  margin-bottom: 20px;
-}
 .screen__current {
   font-size: 5rem;
+  height: 60px;
 }
 .screen__current--muted {
   font-size: 2.5rem;
-}
-.screen__precompute {
-  font-size: 2rem;
 }
 
 .wrapper {
