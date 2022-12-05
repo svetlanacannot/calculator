@@ -1,7 +1,7 @@
 /** @type {import('vite').UserConfig} */
 export default {
   root: process.cwd(),
-  base: '/',
+  base: '/calculator/',
   mode: 'development',
   plugins: [],
   publicDir: './public',
