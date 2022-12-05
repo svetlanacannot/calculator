@@ -10,8 +10,9 @@ export default {
     rollupOptions: {
       output: {
         assetFileNames: () => {
-          return 'assets[name]-[hash][extname]'
-        }
+          return 'assets/[name]-[hash][extname]'
+        },
+        entryFileNames: 'assets/[name]-[hash].js'
       }
     }
   }
