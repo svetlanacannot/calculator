@@ -1,9 +1,18 @@
 /** @type {import('vite').UserConfig} */
 export default {
   root: process.cwd(),
-  base: '/calculator',
+  base: '/',
   mode: 'development',
   plugins: [],
   publicDir: './public',
-  appType: 'spa'
+  appType: 'spa',
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: () => {
+          return 'assets[name]-[hash][extname]'
+        }
+      }
+    }
+  }
 }
