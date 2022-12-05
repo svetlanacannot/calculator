@@ -1,39 +1,45 @@
-import { Calculator } from "./Calculator";
+import { Calculator } from './Calculator'
+import { UI } from './UI'
 
-const previousOperationText = document.querySelector('#previousText');
-const currentOperationText = document.querySelector('#currentText');
+const previousOperationText: HTMLButtonElement | null = document.querySelector('#previousText')
+const currentOperationText: HTMLButtonElement | null = document.querySelector('#currentText')
 
-const allClearButton = document.querySelector('#allClearButton')
-const numberButtons = document.querySelectorAll('.number')
-const operationButtons = document.querySelectorAll('.operation')
-const equalsButton = document.querySelector('#equalsButton')
-const commaButton = document.querySelector('#commaButton')
+const allClearButton: HTMLButtonElement | null = document.querySelector('#allClearButton')
+const numberButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.number')
+const operationButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.operation')
+const equalsButton: HTMLButtonElement | null = document.querySelector('#equalsButton')
+const commaButton: HTMLButtonElement | null = document.querySelector('#commaButton')
 
-if(previousOperationText != null && currentOperationText != null){
-    const calculator = new Calculator(previousOperationText, currentOperationText);
+if (previousOperationText != null && currentOperationText != null) {
+  const calculator = new Calculator()
+  const ui = new UI(previousOperationText, currentOperationText)
 
-    allClearButton?.addEventListener('click', () => {
-        calculator.clear()
-        calculator.updateScreen()
-    })
+  allClearButton?.addEventListener('click', () => {
+    calculator.clear()
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  })
 
-    numberButtons.forEach(btn => btn.addEventListener('click', () => {
-        calculator.appendNumber(btn.innerHTML)
-        calculator.updateScreen()
-    }))
+  numberButtons.forEach(btn => btn.addEventListener('click', () => {
+    if (btn.textContent !== null) {
+      calculator.appendNumber(btn.textContent)
+    }
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  }))
 
-    operationButtons.forEach(btn => btn.addEventListener('click', () => {
-        calculator.appendOperation(btn.innerHTML)
-        calculator.updateScreen()
-    }))
+  operationButtons.forEach(btn => btn.addEventListener('click', () => {
+    if (btn.textContent !== null) {
+      calculator.appendOperation(btn.textContent)
+    }
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  }))
 
-    equalsButton?.addEventListener('click', () => {
-        calculator.compute()
-        calculator.updateScreen()
-    })
+  equalsButton?.addEventListener('click', () => {
+    calculator.compute()
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  })
 
-    commaButton?.addEventListener('click', () => {
-        calculator.appendComma()
-        calculator.updateScreen()
-    })
+  commaButton?.addEventListener('click', () => {
+    calculator.appendComma()
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  })
 }
