@@ -5,14 +5,21 @@
 }
 
 .button {
-    min-width: 70px;
-    height: 70px;
-    font-size: 2.8rem;
+    min-width: 50px;
+    height: 50px;
+    font-size: 2rem;
     border: none;
     border-radius: 50px;
     box-shadow: 5px 5px 10px 0px #757F8A80, -5px -5px 10px 0px #FFFFFF80;
+    transition: box-shadow 0.1s ease-in-out;
 
+    &:hover{
+        box-shadow: 4px 4px 8px 0px #757F8A80, -4px -4px 8px 0px #FFFFFF80;
+    }
 
+    &:active{
+        box-shadow: 0px 0px 0px 0px #757F8A80, 0px 0px 0px 0px #FFFFFF80;
+    }
 
     &--muted{
         color: #757F8A80;
@@ -27,6 +34,17 @@
         grid-column-end: 3;
         border-radius: 50px;
         width: auto;
+    }
+
+    &--pressed-in{
         box-shadow: 5px 5px 10px -2px #757F8A80 inset, -5px -5px 10px -2px #FFFFFF80 inset;
+
+        &:hover{
+            box-shadow: 6px 6px 12px -2px #757F8A80 inset, -6px -6px 12px -2px #FFFFFF80 inset;
+        }
+
+        &:active{
+            box-shadow: 10px 10px 20px -2px #757F8A80 inset, -10px -10px 20px -2px #FFFFFF80 inset;
+        }
     }
 }

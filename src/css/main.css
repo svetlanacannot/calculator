@@ -23,12 +23,19 @@ body {
 }
 
 .button {
-  min-width: 70px;
-  height: 70px;
-  font-size: 2.8rem;
+  min-width: 50px;
+  height: 50px;
+  font-size: 2rem;
   border: none;
   border-radius: 50px;
   box-shadow: 5px 5px 10px 0px rgba(117, 127, 138, 0.5019607843), -5px -5px 10px 0px rgba(255, 255, 255, 0.5019607843);
+  transition: box-shadow 0.1s ease-in-out;
+}
+.button:hover {
+  box-shadow: 4px 4px 8px 0px rgba(117, 127, 138, 0.5019607843), -4px -4px 8px 0px rgba(255, 255, 255, 0.5019607843);
+}
+.button:active {
+  box-shadow: 0px 0px 0px 0px rgba(117, 127, 138, 0.5019607843), 0px 0px 0px 0px rgba(255, 255, 255, 0.5019607843);
 }
 .button--muted {
   color: rgba(117, 127, 138, 0.5019607843);
@@ -41,7 +48,15 @@ body {
   grid-column-end: 3;
   border-radius: 50px;
   width: auto;
+}
+.button--pressed-in {
   box-shadow: 5px 5px 10px -2px rgba(117, 127, 138, 0.5019607843) inset, -5px -5px 10px -2px rgba(255, 255, 255, 0.5019607843) inset;
+}
+.button--pressed-in:hover {
+  box-shadow: 6px 6px 12px -2px rgba(117, 127, 138, 0.5019607843) inset, -6px -6px 12px -2px rgba(255, 255, 255, 0.5019607843) inset;
+}
+.button--pressed-in:active {
+  box-shadow: 10px 10px 20px -2px rgba(117, 127, 138, 0.5019607843) inset, -10px -10px 20px -2px rgba(255, 255, 255, 0.5019607843) inset;
 }
 
 .screen {
@@ -49,27 +64,31 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
   align-items: flex-end;
 }
 .screen__previous {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #6e6e6e;
 }
 .screen__previous--active {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 .screen__current {
-  font-size: 5rem;
-  height: 60px;
+  font-size: 3rem;
+  height: 40px;
 }
 .screen__current--muted {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../assets/background.jpg") center no-repeat;
 }
 
 .calculator {
@@ -83,4 +102,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 4px 4px 30px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 1200px) {
+  .calculator {
+    max-width: 300px;
+    max-height: 500px;
+  }
 }/*# sourceMappingURL=main.css.map */

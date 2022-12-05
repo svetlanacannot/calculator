@@ -4,8 +4,13 @@
 @import "screen";
 
 .wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
+    background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),
+    url('../assets/background.jpg') center no-repeat;
 }
 
 .calculator{
@@ -19,4 +24,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: 4px 4px 30px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media(min-width: 1200px){
+    .calculator{
+        max-width: 300px;
+        max-height: 500px;
+    }
 }
