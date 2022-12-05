@@ -3,7 +3,9 @@ export enum operations {
   plus = '+',
   minus = '-',
   multiply = '*',
-  divide = '÷'
+  divide = '÷',
+  leftRoundBracket = '(',
+  rightRoundBracket = ')'
 };
 export class Calculator {
   private _previousComputeSequenceArray: computeSequenceType = []
