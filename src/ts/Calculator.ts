@@ -72,9 +72,17 @@ export class Calculator {
   }
 
   public compute (): void {
-    this.previousComputeSequenceArray = this.computeSequenceArray
-    this.computed = parseFloat(this.computeSequenceByPriority(this.computeSequenceArray).value)
-    this.computeSequenceArray = new Array({ type: 'number', value: this.computed.toString() })
+    if (this.computed === null) {
+      if (this.computeSequenceArray.length !== 0) {
+        this.previousComputeSequenceArray = this.computeSequenceArray
+        this.computed = parseFloat(this.computeSequenceByPriority(this.computeSequenceArray).value)
+        this.computeSequenceArray = new Array({ type: 'number', value: this.computed.toString() })
+      }
+    } else {
+      this.previousComputeSequenceArray.push({ type: 'operation', value: '=' }, { type: 'number', value: this.computed.toString() })
+      this.computeSequenceArray = []
+      this.computed = null
+    }
   }
 
   public clear (): void {
@@ -85,6 +93,12 @@ export class Calculator {
     }
     this.computeSequenceArray = []
     this.computed = null
+  }
+
+  public deleteLast (): void {
+    if (this.computeSequenceArray.length !== 0) {
+      this.computeSequenceArray.pop()
+    }
   }
 
   private computeSequenceByPriority (computeSequenceArray: computeSequenceType): { type: string, value: string } {
