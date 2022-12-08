@@ -10,6 +10,7 @@ const operationButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAl
 const equalsButton: HTMLButtonElement | null = document.querySelector('#equalsButton')
 const commaButton: HTMLButtonElement | null = document.querySelector('#commaButton')
 const deleteButton: HTMLButtonElement | null = document.querySelector('#deleteButton')
+const percentButton: HTMLButtonElement | null = document.querySelector('#percentButton')
 
 if (previousOperationText != null && currentOperationText != null) {
   const calculator = new Calculator()
@@ -46,6 +47,11 @@ if (previousOperationText != null && currentOperationText != null) {
 
   commaButton?.addEventListener('click', () => {
     calculator.appendComma()
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  })
+
+  percentButton?.addEventListener('click', () => {
+    calculator.changeLastOperandToPercent()
     ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
   })
 }

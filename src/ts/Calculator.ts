@@ -71,6 +71,15 @@ export class Calculator {
     }
   }
 
+  public changeLastOperandToPercent (): void {
+    const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1]
+    const previousOperand = this.computeSequenceArray[this.computeSequenceArray.length - 3]
+
+    if (lastOperand?.type === 'number') {
+      lastOperand.value = (parseFloat(previousOperand.value) * parseFloat(lastOperand.value) / 100).toString()
+    }
+  }
+
   public compute (): void {
     if (this.computed === null) {
       if (this.computeSequenceArray.length !== 0) {
