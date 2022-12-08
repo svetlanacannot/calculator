@@ -1,8 +1,8 @@
 import { computeSequenceType } from './Calculator'
 
 export class UI {
-  private readonly currentOperationTextElement: Element
   private readonly previousOperationTextElement: Element
+  private readonly currentOperationTextElement: Element
 
   constructor (previousOperationTextElement: Element, currentOperationTextElement: Element) {
     this.previousOperationTextElement = previousOperationTextElement

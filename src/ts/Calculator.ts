@@ -50,6 +50,9 @@ export class Calculator {
   }
 
   public appendOperation (operation: string): void {
+    if (this.computed !== null) {
+      this.previousComputeSequenceArray.push({ type: 'operation', value: '=' }, { type: 'number', value: this.computed.toString() })
+    }
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1]
     this.computed = null
 
@@ -69,64 +72,44 @@ export class Calculator {
   }
 
   public compute (): void {
-    let previousOperand: number | null = null
-    let currentOperand: number | null = null
-    let operation: string | null = null
-    let computed: number | null = null
-
-    this.computeSequenceArray.forEach(({ type, value }) => {
-      if (type === 'number') {
-        if (previousOperand === null) previousOperand = parseFloat(value)
-        else if (currentOperand === null) currentOperand = parseFloat(value)
-      } else {
-        if (operation === null) operation = value
-      }
-    })
-
-    if (computed === null && previousOperand !== null && currentOperand !== null && operation !== null) {
-      computed = parseFloat(this.computeSequenceByPriority(this.computeSequenceArray).value)
-
-      currentOperand = null
-      operation = null
-    }
-
-    this.computed = computed
-
-    if (computed !== null) {
-      this.previousComputeSequenceArray = this.computeSequenceArray
-      if (this.computed != null) {
-        this.previousComputeSequenceArray.push({ type: 'operation', value: '=' }, { type: 'number', value: this.computed.toString() })
-      }
-
-      this.computeSequenceArray = new Array({ type: 'number', value: computed.toString() })
-    }
+    this.previousComputeSequenceArray = this.computeSequenceArray
+    this.computed = parseFloat(this.computeSequenceByPriority(this.computeSequenceArray).value)
+    this.computeSequenceArray = new Array({ type: 'number', value: this.computed.toString() })
   }
 
   public clear (): void {
+    if (this.computeSequenceArray.length === 0) {
+      this.previousComputeSequenceArray = []
+    } else if (this.computed != null) {
+      this.previousComputeSequenceArray.push({ type: 'operation', value: '=' }, { type: 'number', value: this.computed.toString() })
+    }
     this.computeSequenceArray = []
     this.computed = null
   }
 
   private computeSequenceByPriority (computeSequenceArray: computeSequenceType): { type: string, value: string } {
     const operationsArray = [operations.multiply, operations.divide, operations.minus, operations.plus]
+    const mathComputeSequenceArray = [...computeSequenceArray]
 
     operationsArray.forEach(operationValue => {
-      while (computeSequenceArray.find(computeItem => computeItem.value === operationValue) != null) {
-        computeSequenceArray.forEach((item, index) => {
+      while (mathComputeSequenceArray.find(computeItem => computeItem.value === operationValue) != null) {
+        mathComputeSequenceArray.forEach((item, index) => {
           if (item.value === operationValue) {
             const operation = item
-            const previousOperand = computeSequenceArray[index - 1]
-            const currentOperand = computeSequenceArray[index + 1]
-            const computed = this.copmuteTwoOperands(operation.value, parseFloat(previousOperand.value), parseFloat(currentOperand.value))
+            const previousOperand = mathComputeSequenceArray[index - 1]
+            const currentOperand = mathComputeSequenceArray[index + 1]
+            const computed = this.copmuteTwoOperands(operation.value,
+              parseFloat(previousOperand.value),
+              parseFloat(currentOperand.value))
             if (computed != null) {
-              computeSequenceArray.splice(index - 1, 3, { type: 'number', value: computed.toString() })
+              mathComputeSequenceArray.splice(index - 1, 3, { type: 'number', value: computed.toString() })
             }
           }
         })
       }
     })
 
-    return computeSequenceArray[0]
+    return mathComputeSequenceArray[0]
   }
 
   private copmuteTwoOperands (operation: string, previousOperand: number, currentOperand: number): number | null {
