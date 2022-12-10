@@ -55,4 +55,45 @@ if (screenElement != null && previousOperationTextElement != null && currentOper
     calculator.changeLastOperandToPercent()
     ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
   })
+
+  document.addEventListener('keypress', e => {
+    const eventKeys = {
+      numbers: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      operations: ['-', '+', '*', '/'],
+      equals: ['=', 'Enter'],
+      comma: ',',
+      percent: '%',
+      delete: 'Delete'
+    }
+
+    if (eventKeys.numbers.includes(e.key)) {
+      calculator.appendNumber(e.key)
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    } else
+
+    if (eventKeys.operations.includes(e.key)) {
+      calculator.appendOperation(e.key)
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    } else
+
+    if (eventKeys.equals.includes(e.key)) {
+      calculator.compute()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    } else
+
+    if (e.key === eventKeys.comma) {
+      calculator.appendComma()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    } else
+
+    if (e.key === eventKeys.delete) {
+      calculator.deleteLast()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    } else
+
+    if (e.key === eventKeys.percent) {
+      calculator.changeLastOperandToPercent()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    }
+  })
 }
