@@ -3,6 +3,19 @@
 @import "keyboard";
 @import "screen";
 
+html{
+    position: fixed; 
+    top: 0; 
+    bottom: 0;
+    height: 100vh;
+    height: -webkit-fill-available;
+}
+
+body{
+    height: 100vh;
+    height: -webkit-fill-available;
+}
+
 .wrapper{
     display: flex;
     align-items: center;
