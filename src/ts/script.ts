@@ -1,8 +1,9 @@
 import { Calculator } from './Calculator'
 import { UI } from './UI'
 
-const previousOperationText: HTMLButtonElement | null = document.querySelector('#previousText')
-const currentOperationText: HTMLButtonElement | null = document.querySelector('#currentText')
+const screenElement: HTMLDivElement | null = document.querySelector('#screen')
+const previousOperationTextElement: HTMLDivElement | null = document.querySelector('#previousText')
+const currentOperationTextElement: HTMLDivElement | null = document.querySelector('#currentText')
 
 const allClearButton: HTMLButtonElement | null = document.querySelector('#allClearButton')
 const numberButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.number')
@@ -12,9 +13,9 @@ const commaButton: HTMLButtonElement | null = document.querySelector('#commaButt
 const deleteButton: HTMLButtonElement | null = document.querySelector('#deleteButton')
 const percentButton: HTMLButtonElement | null = document.querySelector('#percentButton')
 
-if (previousOperationText != null && currentOperationText != null) {
+if (screenElement != null && previousOperationTextElement != null && currentOperationTextElement != null) {
   const calculator = new Calculator()
-  const ui = new UI(previousOperationText, currentOperationText)
+  const ui = new UI(screenElement, previousOperationTextElement, currentOperationTextElement)
 
   allClearButton?.addEventListener('click', () => {
     calculator.clear()

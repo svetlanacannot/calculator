@@ -36,15 +36,16 @@ export class Calculator {
 
   public appendNumber (number: string): void {
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1]
-
-    if (lastOperand?.type === 'number') {
-      lastOperand.value += number
-    } else {
-      if (this.computeSequenceArray.length === 1 && lastOperand.value === '-') {
-        lastOperand.type = 'number'
+    if (lastOperand == null || lastOperand?.value.length < 19) {
+      if (lastOperand?.type === 'number') {
         lastOperand.value += number
       } else {
-        this.computeSequenceArray.push({ type: 'number', value: number })
+        if (this.computeSequenceArray.length === 1 && lastOperand.value === '-') {
+          lastOperand.type = 'number'
+          lastOperand.value += number
+        } else {
+          this.computeSequenceArray.push({ type: 'number', value: number })
+        }
       }
     }
   }
@@ -75,7 +76,7 @@ export class Calculator {
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1]
     const previousOperand = this.computeSequenceArray[this.computeSequenceArray.length - 3]
 
-    if (lastOperand?.type === 'number') {
+    if (lastOperand?.type === 'number' && previousOperand != null) {
       lastOperand.value = (parseFloat(previousOperand.value) * parseFloat(lastOperand.value) / 100).toString()
     }
   }

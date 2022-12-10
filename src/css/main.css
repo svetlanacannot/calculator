@@ -66,22 +66,24 @@ body {
   justify-content: flex-end;
   padding-bottom: 15px;
   align-items: flex-end;
+  text-align: right;
 }
 .screen__previous {
   font-size: 2rem;
   color: #6e6e6e;
-}
-.screen__previous--active {
-  font-size: 3rem;
+  word-break: break-all;
 }
 .screen__current {
-  font-size: 3rem;
-  height: 40px;
-}
-.screen__current--muted {
-  font-size: 2rem;
+  font-size: 4rem;
+  min-height: 40px;
+  word-break: break-all;
 }
 
+@media (min-width: 800px) {
+  .screen__current {
+    font-size: 3rem;
+  }
+}
 .wrapper {
   display: flex;
   align-items: center;
@@ -97,7 +99,6 @@ body {
   background-color: #EFEFEF;
   margin: auto;
   padding: 25px;
-  border-radius: 15px;
   font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: column;
@@ -108,6 +109,7 @@ body {
 @media (min-width: 800px) {
   .calculator {
     max-width: 300px;
-    max-height: 500px;
+    max-height: 600px;
+    border-radius: 15px;
   }
 }/*# sourceMappingURL=main.css.map */

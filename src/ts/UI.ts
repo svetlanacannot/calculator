@@ -1,10 +1,12 @@
 import { computeSequenceType } from './Calculator'
 
 export class UI {
-  private readonly previousOperationTextElement: Element
-  private readonly currentOperationTextElement: Element
+  private readonly previousOperationTextElement: HTMLDivElement
+  private readonly currentOperationTextElement: HTMLDivElement
+  private readonly screenElement: HTMLDivElement
 
-  constructor (previousOperationTextElement: Element, currentOperationTextElement: Element) {
+  constructor (screenElement: HTMLDivElement, previousOperationTextElement: HTMLDivElement, currentOperationTextElement: HTMLDivElement) {
+    this.screenElement = screenElement
     this.previousOperationTextElement = previousOperationTextElement
     this.currentOperationTextElement = currentOperationTextElement
   }
@@ -15,6 +17,10 @@ export class UI {
     if (computed != null) {
       this.previousOperationTextElement.innerHTML = previousOperands.map(operand => operand.value).join('')
       this.currentOperationTextElement.innerHTML = '=' + computed.toString()
+    }
+
+    if (this.currentOperationTextElement.scrollWidth > this.screenElement.scrollWidth) {
+      this.currentOperationTextElement.style.fontSize = '2rem'
     }
   }
 }

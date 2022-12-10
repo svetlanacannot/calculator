@@ -19,7 +19,6 @@
     background-color: #EFEFEF;
     margin: auto;
     padding: 25px;
-    border-radius: 15px;
     font-family: 'Inter', sans-serif;
     display: flex;
     flex-direction: column;
@@ -30,6 +29,7 @@
 @media(min-width: 800px){
     .calculator{
         max-width: 300px;
-        max-height: 500px;
+        max-height: 600px;
+        border-radius: 15px;
     }
 }
