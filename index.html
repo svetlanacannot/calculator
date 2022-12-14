@@ -14,30 +14,44 @@
           <div id="currentText" class="screen__current"></div>
         </div>
         <div class="keyboard">
-            <button id="allClearButton" class="button button--muted">AC</button>
-            <button id="deleteButton" class="button button--muted">D</button>
-            <button id="percentButton" class="button button--orange">%</button>
-            <button class="button button--orange operation">÷</button>
+            <button class="button button--orange button--expanded leftBracketButton">(</button>
+            <button class="button button--orange button--expanded rightBracketButton">)</button>
+            <button class="button button--orange operation button--expanded">√</button>
+            <button class="button button--orange operation button--expanded">^</button>
+
+            <button class="button button--muted button--portrait allClearButton">AC</button>
+            <button class="button button--muted  button--portrait deleteButton">D</button>
+            <button class="button button--orange button--portrait percentButton">%</button>
+            <button class="button button--orange operation  button--portrait">÷</button>
 
             <button class="button number">7</button>
             <button class="button number">8</button>
             <button class="button number">9</button>
             <button class="button button--orange operation">*</button>
+            <button class="button button--orange button--landscape leftBracketButton">(</button>
+            <button class="button button--muted button--landscape allClearButton">AC</button>
 
             <button class="button number">4</button>
             <button class="button number">5</button>
             <button class="button number">6</button>
             <button class="button button--orange operation">-</button>
+            <button class="button button--orange button--landscape rightBracketButton">)</button>
+            <button class="button button--muted button--landscape deleteButton">D</button>
 
             <button class="button number">1</button>
             <button class="button number">2</button>
             <button class="button number">3</button>
             <button class="button button--orange operation">+</button>
-
-            <button class="button button--wide button--pressed-in number">0</button>
-            <button id="commaButton" class="button button">.</button>
+            <button class="button button--orange button--landscape operation">√</button>
+            <button class="button button--orange button--landscape percentButton">%</button>
+            
+            <button class="button button--pressed-in number">0</button>
+            <button id="commaButton" class="button">.</button>
+            <button id="expandKeyboardButton" class="button">⇔</button>
+            <button class="button button--orange operation  button--landscape">÷</button>
+            <button class="button button--orange button--landscape operation">^</button>
             <button id="equalsButton" class="button button--orange">=</button>
-        </div>
+          </div>
       </div>
     </div>
   </body>

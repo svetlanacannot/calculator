@@ -5,26 +5,35 @@ const screenElement: HTMLDivElement | null = document.querySelector('#screen')
 const previousOperationTextElement: HTMLDivElement | null = document.querySelector('#previousText')
 const currentOperationTextElement: HTMLDivElement | null = document.querySelector('#currentText')
 
-const allClearButton: HTMLButtonElement | null = document.querySelector('#allClearButton')
+const expandKeyboardButton: HTMLButtonElement | null = document.querySelector('#expandKeyboardButton')
+const allClearButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.allClearButton')
 const numberButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.number')
 const operationButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.operation')
 const equalsButton: HTMLButtonElement | null = document.querySelector('#equalsButton')
 const commaButton: HTMLButtonElement | null = document.querySelector('#commaButton')
-const deleteButton: HTMLButtonElement | null = document.querySelector('#deleteButton')
-const percentButton: HTMLButtonElement | null = document.querySelector('#percentButton')
+const deleteButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.deleteButton')
+const percentButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.percentButton')
 
 if (screenElement != null && previousOperationTextElement != null && currentOperationTextElement != null) {
   const calculator = new Calculator()
   const ui = new UI(screenElement, previousOperationTextElement, currentOperationTextElement)
 
-  allClearButton?.addEventListener('click', () => {
-    calculator.clear()
-    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  expandKeyboardButton?.addEventListener('click', () => {
+    ui.expandKeyboard()
   })
 
-  deleteButton?.addEventListener('click', () => {
-    calculator.deleteLast()
-    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  allClearButtons.forEach(btn => {
+    btn?.addEventListener('click', () => {
+      calculator.clear()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    })
+  })
+
+  deleteButtons.forEach(btn => {
+    btn?.addEventListener('click', () => {
+      calculator.deleteLast()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    })
   })
 
   numberButtons.forEach(btn => btn.addEventListener('click', () => {
@@ -51,9 +60,11 @@ if (screenElement != null && previousOperationTextElement != null && currentOper
     ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
   })
 
-  percentButton?.addEventListener('click', () => {
-    calculator.changeLastOperandToPercent()
-    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  percentButtons.forEach(btn => {
+    btn?.addEventListener('click', () => {
+      calculator.changeLastOperandToPercent()
+      ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+    })
   })
 
   document.addEventListener('keypress', e => {

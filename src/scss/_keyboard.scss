@@ -47,4 +47,33 @@
             box-shadow: 10px 10px 20px -2px #757F8A80 inset, -10px -10px 20px -2px #FFFFFF80 inset;
         }
     }
+
+    &--landscape{
+        display: none;
+    }
+
+    &--expanded{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 800px) and (orientation: landscape){
+    .keyboard{
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .button{
+        &--portrait{
+            display: none;
+        }
+
+        &--landscape{
+            display: block;
+        }
+
+        &--wide{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+    }
 }

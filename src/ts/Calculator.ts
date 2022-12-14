@@ -107,7 +107,10 @@ export class Calculator {
 
   public deleteLast (): void {
     if (this.computeSequenceArray.length !== 0) {
-      this.computeSequenceArray.pop()
+      this.computeSequenceArray[this.computeSequenceArray.length - 1].value = this.computeSequenceArray[this.computeSequenceArray.length - 1].value.slice(0, -1)
+      if (this.computeSequenceArray[this.computeSequenceArray.length - 1].value === '') {
+        this.computeSequenceArray.pop()
+      }
     }
   }
 

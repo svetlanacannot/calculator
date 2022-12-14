@@ -23,4 +23,16 @@ export class UI {
       this.currentOperationTextElement.style.fontSize = '2rem'
     }
   }
+
+  public expandKeyboard (): void {
+    const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.button--expanded')
+
+    btns.forEach(btn => {
+      if (btn.style.display === 'block') {
+        btn.style.display = 'none'
+      } else {
+        btn.style.display = 'block'
+      }
+    })
+  }
 }
