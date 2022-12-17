@@ -72,6 +72,10 @@ table {
   border-radius: 50px;
   box-shadow: 5px 5px 10px 0px rgba(117, 127, 138, 0.5019607843), -5px -5px 10px 0px rgba(255, 255, 255, 0.5019607843);
   transition: box-shadow 0.1s ease-in-out;
+  text-align: center;
+  color: black;
+  background: white;
+  font-weight: 400;
 }
 .button:hover {
   box-shadow: 4px 4px 8px 0px rgba(117, 127, 138, 0.5019607843), -4px -4px 8px 0px rgba(255, 255, 255, 0.5019607843);
@@ -166,6 +170,11 @@ table {
   height: 100vh;
   height: -webkit-fill-available;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../assets/background.jpg") center no-repeat;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
 }
 
 .calculator {

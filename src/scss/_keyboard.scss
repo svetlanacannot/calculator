@@ -12,6 +12,10 @@
     border-radius: 50px;
     box-shadow: 5px 5px 10px 0px #757F8A80, -5px -5px 10px 0px #FFFFFF80;
     transition: box-shadow 0.1s ease-in-out;
+    text-align: center;
+    color: black;
+    background: #FFFF;
+    font-weight: 400;
 
     &:hover{
         box-shadow: 4px 4px 8px 0px #757F8A80, -4px -4px 8px 0px #FFFFFF80;
