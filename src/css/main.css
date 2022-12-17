@@ -76,6 +76,8 @@ table {
   color: black;
   background: white;
   font-weight: 400;
+  padding: 0px;
+  margin: 0px auto;
 }
 .button:hover {
   box-shadow: 4px 4px 8px 0px rgba(117, 127, 138, 0.5019607843), -4px -4px 8px 0px rgba(255, 255, 255, 0.5019607843);
