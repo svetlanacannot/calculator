@@ -117,9 +117,18 @@ table {
   .button--landscape {
     display: block;
   }
-  .button--wide {
+  .button--wide-on-landscape {
     grid-column-start: 1;
     grid-column-end: 3;
+  }
+  .button--pressed-in-on-landscape {
+    box-shadow: 5px 5px 10px -2px rgba(117, 127, 138, 0.5019607843) inset, -5px -5px 10px -2px rgba(255, 255, 255, 0.5019607843) inset;
+  }
+  .button--pressed-in-on-landscape:hover {
+    box-shadow: 6px 6px 12px -2px rgba(117, 127, 138, 0.5019607843) inset, -6px -6px 12px -2px rgba(255, 255, 255, 0.5019607843) inset;
+  }
+  .button--pressed-in-on-landscape:active {
+    box-shadow: 10px 10px 20px -2px rgba(117, 127, 138, 0.5019607843) inset, -10px -10px 20px -2px rgba(255, 255, 255, 0.5019607843) inset;
   }
 }
 .screen {

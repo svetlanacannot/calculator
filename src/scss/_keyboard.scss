@@ -71,9 +71,21 @@
             display: block;
         }
 
-        &--wide{
+        &--wide-on-landscape{
             grid-column-start: 1;
             grid-column-end: 3;
+        }
+
+        &--pressed-in-on-landscape{
+            box-shadow: 5px 5px 10px -2px #757F8A80 inset, -5px -5px 10px -2px #FFFFFF80 inset;
+    
+            &:hover{
+                box-shadow: 6px 6px 12px -2px #757F8A80 inset, -6px -6px 12px -2px #FFFFFF80 inset;
+            }
+    
+            &:active{
+                box-shadow: 10px 10px 20px -2px #757F8A80 inset, -10px -10px 20px -2px #FFFFFF80 inset;
+            }
         }
     }
 }

@@ -1,14 +1,18 @@
 export type computeSequenceType = Array<{ type: string, value: string }>
 export enum operations {
+  multiply = '*',
+  divide = '÷',
   plus = '+',
   minus = '-',
-  multiply = '*',
-  divide = '÷'
-};
+}
+export enum brackets {
+  left = '(',
+  right = ')'
+}
 export class Calculator {
-  private _previousComputeSequenceArray: computeSequenceType = []
-  private _computeSequenceArray: computeSequenceType = []
-  private _computed: number | null = null
+  protected _previousComputeSequenceArray: computeSequenceType = []
+  protected _computeSequenceArray: computeSequenceType = []
+  protected _computed: number | null = null
 
   public get previousComputeSequenceArray (): computeSequenceType {
     return this._previousComputeSequenceArray
@@ -36,17 +40,14 @@ export class Calculator {
 
   public appendNumber (number: string): void {
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1]
-    if (lastOperand == null || lastOperand?.value.length < 19) {
-      if (lastOperand?.type === 'number') {
-        lastOperand.value += number
-      } else {
-        if (this.computeSequenceArray.length === 1 && lastOperand.value === '-') {
-          lastOperand.type = 'number'
-          lastOperand.value += number
-        } else {
-          this.computeSequenceArray.push({ type: 'number', value: number })
-        }
-      }
+
+    if (lastOperand?.value.length > 19) { return }
+
+    if (lastOperand == null || lastOperand.type === 'operation' || lastOperand.type === 'bracket') {
+      this.computeSequenceArray.push({ type: 'number', value: number })
+    } else if (lastOperand.type === 'number' || (this.computeSequenceArray.length === 1 && lastOperand.value === '-')) {
+      lastOperand.type = 'number'
+      lastOperand.value += number
     }
   }
 
@@ -64,6 +65,10 @@ export class Calculator {
     }
   }
 
+  public appendBracket (bracket: string): void {
+    this.computeSequenceArray.push({ type: 'bracket', value: bracket })
+  }
+
   public appendComma (): void {
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1]
 
@@ -78,20 +83,6 @@ export class Calculator {
 
     if (lastOperand?.type === 'number' && previousOperand != null) {
       lastOperand.value = (parseFloat(previousOperand.value) * parseFloat(lastOperand.value) / 100).toString()
-    }
-  }
-
-  public compute (): void {
-    if (this.computed === null) {
-      if (this.computeSequenceArray.length !== 0) {
-        this.previousComputeSequenceArray = this.computeSequenceArray
-        this.computed = parseFloat(this.computeSequenceByPriority(this.computeSequenceArray).value)
-        this.computeSequenceArray = new Array({ type: 'number', value: this.computed.toString() })
-      }
-    } else {
-      this.previousComputeSequenceArray.push({ type: 'operation', value: '=' }, { type: 'number', value: this.computed.toString() })
-      this.computeSequenceArray = []
-      this.computed = null
     }
   }
 
@@ -114,6 +105,56 @@ export class Calculator {
     }
   }
 
+  public compute (): void {
+    if (this.computed !== null) {
+      this.previousComputeSequenceArray.push({ type: 'equals', value: '=' }, { type: 'number', value: this.computed.toString() })
+      this.computeSequenceArray = []
+      this.computed = null
+      return
+    }
+
+    // mathComputeSequenceArray.splice(index - 1, 3, { type: 'number', value: computed.toString() })
+
+    if (this.computeSequenceArray.length !== 0) {
+      this.previousComputeSequenceArray = this.computeSequenceArray
+
+      if (!this.validateBrackets(this.computeSequenceArray)) {
+        this.computeSequenceArray = [{ type: 'exception', value: 'Brackets are not closed' }]
+        return
+      }
+
+      const tempComputeSequenceArray = [...this.computeSequenceArray]
+
+      const leftBracketsIndexesArray: number[] = []
+      const rightBracketsIndexesArray: number[] = []
+
+      tempComputeSequenceArray.forEach((item, index) => {
+        if (item.value === '(') leftBracketsIndexesArray.push(index)
+        else if (item.value === ')') rightBracketsIndexesArray.push(index)
+      })
+
+      leftBracketsIndexesArray.reverse().forEach(leftBracketIndex => {
+        const pairRightBracketIndex = rightBracketsIndexesArray.find(rightBracketIndex => rightBracketIndex > leftBracketIndex)
+        if (pairRightBracketIndex != null) {
+          const pairSequenceArray = tempComputeSequenceArray.filter((sequenceItem, sequenceItemIndex) =>
+            sequenceItemIndex > leftBracketIndex && sequenceItemIndex < pairRightBracketIndex)
+          const computed = this.computeSequenceByPriority(pairSequenceArray)
+          tempComputeSequenceArray.splice(leftBracketIndex, pairRightBracketIndex, computed)
+        }
+      })
+
+      const computed = this.computeSequenceByPriority(tempComputeSequenceArray)
+
+      this.computed = parseFloat(computed.value)
+    }
+  }
+
+  private validateBrackets (computeSequenceArray: computeSequenceType): boolean {
+    const leftBracketsArray = computeSequenceArray.filter(computeItem => computeItem.value === '(')
+    const rightBracketsArray = computeSequenceArray.filter(computeItem => computeItem.value === ')')
+    return leftBracketsArray.length === rightBracketsArray.length
+  }
+
   private computeSequenceByPriority (computeSequenceArray: computeSequenceType): { type: string, value: string } {
     const operationsArray = [operations.multiply, operations.divide, operations.minus, operations.plus]
     const mathComputeSequenceArray = [...computeSequenceArray]
@@ -122,10 +163,9 @@ export class Calculator {
       while (mathComputeSequenceArray.find(computeItem => computeItem.value === operationValue) != null) {
         mathComputeSequenceArray.forEach((item, index) => {
           if (item.value === operationValue) {
-            const operation = item
             const previousOperand = mathComputeSequenceArray[index - 1]
             const currentOperand = mathComputeSequenceArray[index + 1]
-            const computed = this.copmuteTwoOperands(operation.value,
+            const computed = this.copmuteTwoOperands(item.value,
               parseFloat(previousOperand.value),
               parseFloat(currentOperand.value))
             if (computed != null) {
@@ -144,7 +184,7 @@ export class Calculator {
       case operations.plus: return parseFloat((previousOperand + currentOperand).toFixed(10))
       case operations.minus: return parseFloat((previousOperand - currentOperand).toFixed(10))
       case operations.multiply: return parseFloat((previousOperand * currentOperand).toFixed(10))
-      case operations.divide: if (currentOperand !== 0) { return parseFloat((previousOperand / currentOperand).toFixed(10)) };
+      case operations.divide: if (currentOperand !== 0) return parseFloat((previousOperand / currentOperand).toFixed(10))
     }
     return null
   }

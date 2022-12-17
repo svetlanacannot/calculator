@@ -13,6 +13,7 @@ const equalsButton: HTMLButtonElement | null = document.querySelector('#equalsBu
 const commaButton: HTMLButtonElement | null = document.querySelector('#commaButton')
 const deleteButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.deleteButton')
 const percentButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.percentButton')
+const bracketButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.bracketButton')
 
 if (screenElement != null && previousOperationTextElement != null && currentOperationTextElement != null) {
   const calculator = new Calculator()
@@ -46,6 +47,13 @@ if (screenElement != null && previousOperationTextElement != null && currentOper
   operationButtons.forEach(btn => btn.addEventListener('click', () => {
     if (btn.textContent !== null) {
       calculator.appendOperation(btn.textContent)
+    }
+    ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
+  }))
+
+  bracketButtons.forEach(btn => btn.addEventListener('click', () => {
+    if (btn.textContent !== null) {
+      calculator.appendBracket(btn.textContent)
     }
     ui.updateScreen(calculator.previousComputeSequenceArray, calculator.computeSequenceArray, calculator.computed)
   }))
