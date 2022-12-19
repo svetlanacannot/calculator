@@ -22,6 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-tap-highlight-color: #ccc;
 
     &:hover{
         box-shadow: 4px 4px 8px 0px #757F8A80, -4px -4px 8px 0px #FFFFFF80;
