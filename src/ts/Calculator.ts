@@ -136,7 +136,7 @@ export class Calculator {
       leftBracketsIndexesArray.reverse().forEach(leftBracketIndex => {
         const pairRightBracketIndex = rightBracketsIndexesArray.find(rightBracketIndex => rightBracketIndex > leftBracketIndex)
         if (pairRightBracketIndex != null) {
-          const pairSequenceArray = tempComputeSequenceArray.filter((sequenceItem, sequenceItemIndex) =>
+          const pairSequenceArray = tempComputeSequenceArray.filter((_sequenceItem, sequenceItemIndex) =>
             sequenceItemIndex > leftBracketIndex && sequenceItemIndex < pairRightBracketIndex)
           const computed = this.computeSequenceByPriority(pairSequenceArray)
           tempComputeSequenceArray.splice(leftBracketIndex, pairRightBracketIndex, computed)
