@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    -webkit-tap-highlight-color: #ccc;
+    -webkit-tap-highlight-color: #fff;
 
     &:hover{
         box-shadow: 4px 4px 8px 0px #757F8A80, -4px -4px 8px 0px #FFFFFF80;
@@ -30,6 +30,8 @@
 
     &:active{
         box-shadow: 0px 0px 0px 0px #757F8A80, 0px 0px 0px 0px #FFFFFF80;
+        background-color: #fff;
+        border: none;
     }
 
     &--muted{
