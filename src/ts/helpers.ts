@@ -46,8 +46,8 @@ export function computeSequenceByPriority(computeSequenceArray: ComputeSequenceT
 
 export function computeBracketsSequence(
   computeSequenceArray: ComputeSequenceType[],
-  rightBracketsIndexesArray,
-  leftBracketIndex,
+  rightBracketsIndexesArray: number[],
+  leftBracketIndex: number,
 ): ComputeSequenceType[] {
   const tempComputeSequenceArray = [...computeSequenceArray];
   const pairRightBracketIndex = rightBracketsIndexesArray.find(
@@ -62,4 +62,16 @@ export function computeBracketsSequence(
     tempComputeSequenceArray.splice(leftBracketIndex, pairRightBracketIndex, computed);
   }
   return tempComputeSequenceArray;
+}
+
+export function createCustomElement(
+  tag: string,
+  className: string | null = null,
+  id: string | null = null,
+): HTMLElement {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (id) element.id = id;
+
+  return element;
 }
