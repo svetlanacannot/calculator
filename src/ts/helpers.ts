@@ -46,14 +46,14 @@ export function computeSequenceByPriority(computeSequenceArray: ComputeSequenceT
 
 export function computeBracketsSequence(
   computeSequenceArray: ComputeSequenceType[],
-  rightBracketsIndexesArray: number[],
+  rightBracketsIndexesArray: number[] | null,
   leftBracketIndex: number,
 ): ComputeSequenceType[] {
   const tempComputeSequenceArray = [...computeSequenceArray];
-  const pairRightBracketIndex = rightBracketsIndexesArray.find(
+  const pairRightBracketIndex: null | number = rightBracketsIndexesArray?.find(
     (rightBracketIndex) => rightBracketIndex > leftBracketIndex,
-  );
-  if (pairRightBracketIndex != null) {
+  ) ?? null;
+  if (pairRightBracketIndex !== null) {
     const pairSequenceArray = tempComputeSequenceArray.filter(
       (_sequenceItem, sequenceItemIndex) => sequenceItemIndex > leftBracketIndex
       && sequenceItemIndex < pairRightBracketIndex,
