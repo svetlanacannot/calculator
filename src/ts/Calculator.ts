@@ -115,15 +115,15 @@ export default class Calculator {
         return;
       }
 
-      const leftBracketsIndexesArray: Array<number | null> = this.computeSequenceArray
+      const leftBracketsIndexesArray: Array<number> | null = this.computeSequenceArray
         .map((item, index) => (item.value === Brackets.LEFT ? index : null))
-        .filter((item) => item !== null);
+        ?.filter((item) => item !== null) as Array<number> | null;
 
-      const rightBracketsIndexesArray: Array<number | null> = this.computeSequenceArray
+      const rightBracketsIndexesArray: Array<number> | null = this.computeSequenceArray
         .map((item, index) => (item.value === Brackets.RIGHT ? index : null))
-        .filter((item) => item !== null);
+        ?.filter((item) => item !== null) as Array<number> | null;
 
-      leftBracketsIndexesArray.reverse().forEach((leftBracketIndex) => {
+      leftBracketsIndexesArray?.reverse().forEach((leftBracketIndex) => {
         computeBracketsSequence(this.computeSequenceArray, rightBracketsIndexesArray, leftBracketIndex);
       });
 
