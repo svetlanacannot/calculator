@@ -1,6 +1,8 @@
 import { computeBracketsSequence, computeSequenceByPriority, validateBrackets } from './helpers';
 import { ComputeSequenceType } from './interfaces/types';
-import { Brackets, Operations, SequenceItems } from './interfaces/enums';
+import {
+  Brackets, Operations, SeparateButtonsKeys, SequenceItems,
+} from './interfaces/enums';
 
 export default class Calculator {
   private previousComputeSequenceArray = Array<ComputeSequenceType>();
@@ -41,7 +43,7 @@ export default class Calculator {
   public appendOperation(operation: string): void {
     if (this.computed !== null) {
       this.previousComputeSequenceArray.push(
-        { type: SequenceItems.OPERATION, value: Operations.EQUALS },
+        { type: SequenceItems.EQUALS, value: SeparateButtonsKeys.EQUALS },
         { type: SequenceItems.NUMBER, value: this.computed.toString() },
       );
     }
@@ -55,11 +57,11 @@ export default class Calculator {
     }
   }
 
-  public appendBracket(bracket: string): void {
+  public appendBracket(bracket: string) {
     this.computeSequenceArray.push({ type: SequenceItems.BRACKET, value: bracket });
   }
 
-  public appendComma(): void {
+  public appendComma() {
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1];
 
     if (lastOperand?.type === SequenceItems.NUMBER
@@ -68,7 +70,7 @@ export default class Calculator {
     }
   }
 
-  public changeLastOperandToPercent(): void {
+  public changeLastOperandToPercent() {
     const lastOperand = this.computeSequenceArray[this.computeSequenceArray.length - 1];
     const previousOperand = this.computeSequenceArray[this.computeSequenceArray.length - 3];
 
@@ -82,7 +84,7 @@ export default class Calculator {
       this.previousComputeSequenceArray = [];
     } else if (this.computed != null) {
       this.previousComputeSequenceArray.push(
-        { type: SequenceItems.OPERATION, value: Operations.EQUALS },
+        { type: SequenceItems.EQUALS, value: SeparateButtonsKeys.EQUALS },
         { type: SequenceItems.NUMBER, value: this.computed.toString() },
       );
     }
@@ -91,12 +93,14 @@ export default class Calculator {
   }
 
   public deleteLast(): void {
-    const { computeSequenceArray } = this;
-    if (computeSequenceArray.length !== 0) {
-      const computeSequenceArrayLastIndex = computeSequenceArray.length - 1;
-      computeSequenceArray[computeSequenceArrayLastIndex].value.slice(0, -1); // CHECK IF THIS WORKS
-      if (computeSequenceArray[computeSequenceArrayLastIndex].value === '') {
-        computeSequenceArray.pop();
+    if (this.computeSequenceArray.length === 0) {
+      this.previousComputeSequenceArray = [];
+    } else {
+      const computeSequenceArrayLastIndex = this.computeSequenceArray.length - 1;
+      const valueOfLastElement = this.computeSequenceArray[computeSequenceArrayLastIndex].value;
+      this.computeSequenceArray[computeSequenceArrayLastIndex].value = valueOfLastElement.slice(0, -1);
+      if (this.computeSequenceArray[computeSequenceArrayLastIndex].value === '') {
+        this.computeSequenceArray.pop();
       }
     }
   }
@@ -124,7 +128,11 @@ export default class Calculator {
         ?.filter((item) => item !== null) as Array<number> | null;
 
       leftBracketsIndexesArray?.reverse().forEach((leftBracketIndex) => {
-        computeBracketsSequence(this.computeSequenceArray, rightBracketsIndexesArray, leftBracketIndex);
+        this.computeSequenceArray = computeBracketsSequence(
+          this.computeSequenceArray,
+          rightBracketsIndexesArray,
+          leftBracketIndex,
+        );
       });
 
       const computed = computeSequenceByPriority(this.computeSequenceArray);
@@ -134,7 +142,7 @@ export default class Calculator {
 
   private moveComputedToPreviousSequence(computed: string): void {
     this.previousComputeSequenceArray.push(
-      { type: SequenceItems.OPERATION, value: Operations.EQUALS },
+      { type: SequenceItems.EQUALS, value: SeparateButtonsKeys.EQUALS },
       { type: SequenceItems.NUMBER, value: computed },
     );
     this.computeSequenceArray = [];

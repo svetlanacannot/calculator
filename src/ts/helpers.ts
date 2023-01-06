@@ -1,4 +1,6 @@
-import { Brackets, Operations, SequenceItems } from './interfaces/enums';
+import {
+  Brackets, Operations, SequenceItems,
+} from './interfaces/enums';
 import { ComputeSequenceType } from './interfaces/types';
 
 export function validateBrackets(computeSequenceArray: ComputeSequenceType[]): boolean {
@@ -65,13 +67,15 @@ export function computeBracketsSequence(
 }
 
 export function createCustomElement(
-  tag: string,
+  tagName: string,
   className: string | null = null,
   id: string | null = null,
+  innerText: string | null = null,
 ): HTMLElement {
-  const element = document.createElement(tag);
+  const element = document.createElement(tagName);
   if (className) element.className = className;
   if (id) element.id = id;
+  if (innerText) element.innerText = innerText;
 
   return element;
 }

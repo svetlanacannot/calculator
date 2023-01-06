@@ -1,0 +1,229 @@
+{
+   "buttons": [
+    {
+        "type": "bracketButton",
+        "tagName": "button",
+        "class": "button button--orange button--expanded bracketButton",
+        "id": null,
+        "innerText": "("
+    },
+    {
+        "type": "bracketButton",
+        "tagName": "button",
+        "class": "button button--orange button--expanded bracketButton",
+        "id": null,
+        "innerText": ")"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation button--expanded",
+        "id": null,
+        "innerText": "√"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation button--expanded",
+        "id": null,
+        "innerText": "^"
+    },
+    {
+        "type": "allClearButton",
+        "tagName": "button",
+        "class": "button button--muted button--portrait allClearButton",
+        "id": null,
+        "innerText": "AC"
+    },
+    {
+        "type": "deleteButton",
+        "tagName": "button",
+        "class": "button button--muted  button--portrait deleteButton",
+        "id": null,
+        "innerText": "D"
+    },
+    {
+        "type": "percentButton",
+        "tagName": "button",
+        "class": "button button--orange button--portrait percentButton",
+        "id": null,
+        "innerText": "%"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation  button--portrait",
+        "id": null,
+        "innerText": "÷"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "7"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "8"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "9"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation",
+        "id": null,
+        "innerText": "*"
+    },
+    {
+        "type": "bracketButton",
+        "tagName": "button",
+        "class": "button button--orange button--landscape bracketButton",
+        "id": null,
+        "innerText": "("
+    },
+    {
+        "type": "allClearButton",
+        "tagName": "button",
+        "class": "button button--muted button--landscape allClearButton",
+        "id": null,
+        "innerText": "AC"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "4"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "5"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "6"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation",
+        "id": null,
+        "innerText": "-"
+    },
+    {
+        "type": "bracketButton",
+        "tagName": "button",
+        "class": "button button--orange button--landscape bracketButton",
+        "id": null,
+        "innerText": ")"
+    },
+    {
+        "type": "deleteButton",
+        "tagName": "button",
+        "class": "button button--muted button--landscape deleteButton",
+        "id": null,
+        "innerText": "D"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "1"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "2"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button number",
+        "id": null,
+        "innerText": "3"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation",
+        "id": null,
+        "innerText": "+"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange button--landscape operation",
+        "id": null,
+        "innerText": "√"
+    },
+    {
+        "type": "percentButton",
+        "tagName": "button",
+        "class": "button button--orange button--landscape percentButton",
+        "id": null,
+        "innerText": "%"
+    },
+    {
+        "type": "expandButton",
+        "tagName": "button",
+        "class": "button button--pressed-in button--portrait",
+        "id": "expandKeyboardButton",
+        "innerText": "⇔"
+    },
+    {
+        "type": "numberButton",
+        "tagName": "button",
+        "class": "button button--wide-on-landscape button--pressed-in-on-landscape number",
+        "id": null,
+        "innerText": "0"
+    },
+    {
+        "type": "commaButton",
+        "tagName": "button",
+        "class": "button",
+        "id": "commaButton",
+        "innerText": "."
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange operation  button--landscape",
+        "id": null,
+        "innerText": "÷"
+    },
+    {
+        "type": "operationButton",
+        "tagName": "button",
+        "class": "button button--orange button--landscape operation",
+        "id": null,
+        "innerText": "^"
+    },
+    {
+        "type": "equalsButton",
+        "tagName": "button",
+        "class": "button button--orange",
+        "id": "equalsButton",
+        "innerText": "="
+    }
+   ]
+    
+}
