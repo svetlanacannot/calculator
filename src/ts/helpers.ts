@@ -17,12 +17,19 @@ export function computeTwoOperands(operation: string, previousOperand: number, c
     case Operations.DIVIDE: return currentOperand !== 0
       ? parseFloat((previousOperand / currentOperand).toFixed(10))
       : null;
+    case Operations.POWER: {
+      let tempComputed = previousOperand;
+      for (let i = 1; i <= currentOperand - 1; i += 1) {
+        tempComputed *= previousOperand;
+      }
+      return tempComputed;
+    }
     default: return null;
   }
 }
 
 export function computeSequenceByPriority(computeSequenceArray: ComputeSequenceType[]): ComputeSequenceType {
-  const operationsArray = [Operations.MULTIPLY, Operations.DIVIDE, Operations.MINUS, Operations.PLUS];
+  const operationsArray = [Operations.POWER, Operations.MULTIPLY, Operations.DIVIDE, Operations.MINUS, Operations.PLUS];
   const tempSequenceArray = [...computeSequenceArray];
 
   operationsArray.forEach((operationValue) => {
@@ -64,18 +71,15 @@ export function computeBracketsSequence(
     const computed = pairSequenceArray.length !== 1
       ? computeSequenceByPriority(pairSequenceArray)
       : { type: 'number', value: pairSequenceArray[0].value };
-    if (tempComputeSequenceArray[leftBracketIndex - 1]?.value === Operations.ROOT) {
-      computed.value = Math.sqrt(parseFloat(computed.value)).toString();
-    } else if (tempComputeSequenceArray[leftBracketIndex - 1]?.value === Operations.POWER) {
-      computed.value = (parseFloat(computed.value) * parseFloat(computed.value)).toString();
-    }
 
-    if (tempComputeSequenceArray[leftBracketIndex - 1].type === SequenceItems.NUMBER) {
-      tempComputeSequenceArray.splice(
-        leftBracketIndex,
-        0,
-        { type: SequenceItems.OPERATION, value: Operations.MULTIPLY },
-      );
+    if (tempComputeSequenceArray[leftBracketIndex - 2].type === SequenceItems.NUMBER) {
+      if (tempComputeSequenceArray[leftBracketIndex - 1].type !== SequenceItems.OPERATION) {
+        tempComputeSequenceArray.splice(
+          leftBracketIndex - 1,
+          0,
+          { type: SequenceItems.OPERATION, value: Operations.MULTIPLY },
+        );
+      }
       tempComputeSequenceArray.splice(
         leftBracketIndex + 1,
         pairRightBracketIndex,
@@ -84,7 +88,13 @@ export function computeBracketsSequence(
     } else {
       tempComputeSequenceArray.splice(leftBracketIndex - 1, pairRightBracketIndex, computed);
     }
+
+    if (tempComputeSequenceArray[leftBracketIndex - 1]?.value === Operations.ROOT
+      || tempComputeSequenceArray[leftBracketIndex - 1]?.value === Operations.POWER) {
+      tempComputeSequenceArray.splice(leftBracketIndex, 1);
+    }
   }
+
   return tempComputeSequenceArray;
 }
 
