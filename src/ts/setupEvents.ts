@@ -27,8 +27,9 @@ export function setupButtonEvents(
           break;
         }
         case ButtonTypes.OPERATION_BUTTON: {
-          if (buttonElement.textContent !== null) {
-            calculator.appendOperation(buttonElement.textContent);
+          if (buttonElement.textContent !== null
+            && Object.values(Operations).includes(buttonElement.textContent as Operations)) {
+            calculator.appendOperation(buttonElement.textContent as Operations);
           }
           break;
         }
@@ -66,8 +67,9 @@ export function setupKeyPressEvents(calculator: Calculator, ui: UI) {
 
     if (eventKeys.numbers.includes(e.key as Numbers)) {
       calculator.appendNumber(e.key);
-    } else if (eventKeys.operations.includes(e.key as Operations)) {
-      calculator.appendOperation(e.key);
+    } else if (eventKeys.operations.includes(e.key as Operations)
+    && Object.values(Operations).includes(e.key as Operations)) {
+      calculator.appendOperation(e.key as Operations);
     } else if (eventKeys.equals.includes(e.key as SeparateButtonsKeys)) {
       calculator.compute();
     } else if (eventKeys.brackets.includes(e.key as Brackets)) {

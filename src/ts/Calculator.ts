@@ -40,7 +40,7 @@ export default class Calculator {
     }
   }
 
-  public appendOperation(operation: string): void {
+  public appendOperation(operation: Operations): void {
     if (this.computed !== null) {
       this.previousComputeSequenceArray.push(
         { type: SequenceItems.EQUALS, value: SeparateButtonsKeys.EQUALS },
@@ -54,6 +54,9 @@ export default class Calculator {
       lastOperand.value = operation;
     } else {
       this.computeSequenceArray.push({ type: SequenceItems.OPERATION, value: operation });
+    }
+    if (operation === Operations.ROOT || operation === Operations.POWER) {
+      this.computeSequenceArray.push({ type: SequenceItems.BRACKET, value: Brackets.LEFT });
     }
   }
 
@@ -108,35 +111,37 @@ export default class Calculator {
   public compute(): void {
     if (this.computed !== null) {
       this.moveComputedToPreviousSequence(this.computed.toString());
-      return;
     }
 
     if (this.computeSequenceArray.length !== 0) {
-      this.previousComputeSequenceArray = this.computeSequenceArray;
+      let tempSequenceArray: ComputeSequenceType[] = [];
+      this.previousComputeSequenceArray = [...this.computeSequenceArray];
 
       if (!validateBrackets(this.computeSequenceArray)) {
         this.computeSequenceArray = [{ type: 'exception', value: 'Brackets are not closed' }];
-        return;
+      } else {
+        const leftBracketsIndexesArray: Array<number> | null = this.computeSequenceArray
+          .map((item, index) => (item.value === Brackets.LEFT ? index : null))
+          ?.filter((item) => item !== null) as Array<number> | null;
+
+        const rightBracketsIndexesArray: Array<number> | null = this.computeSequenceArray
+          .map((item, index) => (item.value === Brackets.RIGHT ? index : null))
+          ?.filter((item) => item !== null) as Array<number> | null;
+
+        leftBracketsIndexesArray?.reverse().forEach((leftBracketIndex) => {
+          tempSequenceArray = computeBracketsSequence(
+            this.computeSequenceArray,
+            rightBracketsIndexesArray,
+            leftBracketIndex,
+          );
+        });
+
+        const computed = computeSequenceByPriority(tempSequenceArray.length !== 0
+          ? tempSequenceArray
+          : this.computeSequenceArray);
+        this.computed = parseFloat(computed.value);
+        this.computeSequenceArray = [computed];
       }
-
-      const leftBracketsIndexesArray: Array<number> | null = this.computeSequenceArray
-        .map((item, index) => (item.value === Brackets.LEFT ? index : null))
-        ?.filter((item) => item !== null) as Array<number> | null;
-
-      const rightBracketsIndexesArray: Array<number> | null = this.computeSequenceArray
-        .map((item, index) => (item.value === Brackets.RIGHT ? index : null))
-        ?.filter((item) => item !== null) as Array<number> | null;
-
-      leftBracketsIndexesArray?.reverse().forEach((leftBracketIndex) => {
-        this.computeSequenceArray = computeBracketsSequence(
-          this.computeSequenceArray,
-          rightBracketsIndexesArray,
-          leftBracketIndex,
-        );
-      });
-
-      const computed = computeSequenceByPriority(this.computeSequenceArray);
-      this.computed = parseFloat(computed.value);
     }
   }
 

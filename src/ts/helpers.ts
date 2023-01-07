@@ -15,35 +15,36 @@ export function computeTwoOperands(operation: string, previousOperand: number, c
     case Operations.MINUS: return parseFloat((previousOperand - currentOperand).toFixed(10));
     case Operations.MULTIPLY: return parseFloat((previousOperand * currentOperand).toFixed(10));
     case Operations.DIVIDE: return currentOperand !== 0
-      ? parseFloat((previousOperand / currentOperand).toFixed(10)) : null;
+      ? parseFloat((previousOperand / currentOperand).toFixed(10))
+      : null;
     default: return null;
   }
 }
 
 export function computeSequenceByPriority(computeSequenceArray: ComputeSequenceType[]): ComputeSequenceType {
   const operationsArray = [Operations.MULTIPLY, Operations.DIVIDE, Operations.MINUS, Operations.PLUS];
-  const mathComputeSequenceArray = [...computeSequenceArray];
+  const tempSequenceArray = [...computeSequenceArray];
 
   operationsArray.forEach((operationValue) => {
-    while (mathComputeSequenceArray.find((computeItem) => computeItem.value === operationValue) != null) {
-      mathComputeSequenceArray.forEach((item, index) => {
+    while (tempSequenceArray.find((computeItem) => computeItem.value === operationValue) != null) {
+      tempSequenceArray.forEach((item, index) => {
         if (item.value === operationValue) {
-          const previousOperand = mathComputeSequenceArray[index - 1];
-          const currentOperand = mathComputeSequenceArray[index + 1];
+          const previousOperand = tempSequenceArray[index - 1];
+          const currentOperand = tempSequenceArray[index + 1];
           const computed = computeTwoOperands(
             item.value,
             parseFloat(previousOperand.value),
             parseFloat(currentOperand.value),
           );
           if (computed != null) {
-            mathComputeSequenceArray.splice(index - 1, 3, { type: SequenceItems.NUMBER, value: computed.toString() });
+            tempSequenceArray.splice(index - 1, 3, { type: SequenceItems.NUMBER, value: computed.toString() });
           }
         }
       });
     }
   });
 
-  return mathComputeSequenceArray[0];
+  return tempSequenceArray[0];
 }
 
 export function computeBracketsSequence(
@@ -60,8 +61,29 @@ export function computeBracketsSequence(
       (_sequenceItem, sequenceItemIndex) => sequenceItemIndex > leftBracketIndex
       && sequenceItemIndex < pairRightBracketIndex,
     );
-    const computed = computeSequenceByPriority(pairSequenceArray);
-    tempComputeSequenceArray.splice(leftBracketIndex, pairRightBracketIndex, computed);
+    const computed = pairSequenceArray.length !== 1
+      ? computeSequenceByPriority(pairSequenceArray)
+      : { type: 'number', value: pairSequenceArray[0].value };
+    if (tempComputeSequenceArray[leftBracketIndex - 1]?.value === Operations.ROOT) {
+      computed.value = Math.sqrt(parseFloat(computed.value)).toString();
+    } else if (tempComputeSequenceArray[leftBracketIndex - 1]?.value === Operations.POWER) {
+      computed.value = (parseFloat(computed.value) * parseFloat(computed.value)).toString();
+    }
+
+    if (tempComputeSequenceArray[leftBracketIndex - 1].type === SequenceItems.NUMBER) {
+      tempComputeSequenceArray.splice(
+        leftBracketIndex,
+        0,
+        { type: SequenceItems.OPERATION, value: Operations.MULTIPLY },
+      );
+      tempComputeSequenceArray.splice(
+        leftBracketIndex + 1,
+        pairRightBracketIndex,
+        computed,
+      );
+    } else {
+      tempComputeSequenceArray.splice(leftBracketIndex - 1, pairRightBracketIndex, computed);
+    }
   }
   return tempComputeSequenceArray;
 }

@@ -3,6 +3,8 @@ export enum Operations {
   DIVIDE = '÷',
   PLUS = '+',
   MINUS = '-',
+  ROOT = '√',
+  POWER = '^',
 }
 
 export enum SeparateButtonsKeys {
