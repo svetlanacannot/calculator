@@ -82,7 +82,7 @@ export default class Calculator {
     }
   }
 
-  public clear(): void {
+  public clear() {
     if (this.computeSequenceArray.length === 0) {
       this.previousComputeSequenceArray = [];
     } else if (this.computed != null) {
@@ -95,7 +95,14 @@ export default class Calculator {
     this.computed = null;
   }
 
-  public deleteLast(): void {
+  public deleteLast() {
+    if (this.computed !== null) {
+      this.previousComputeSequenceArray.push(
+        { type: SequenceItems.EQUALS, value: SeparateButtonsKeys.EQUALS },
+        { type: SequenceItems.NUMBER, value: this.computed.toString() },
+      );
+      this.computed = null;
+    }
     if (this.computeSequenceArray.length === 0) {
       this.previousComputeSequenceArray = [];
     } else {
@@ -108,7 +115,7 @@ export default class Calculator {
     }
   }
 
-  public compute(): void {
+  public compute() {
     if (this.computed !== null) {
       this.moveComputedToPreviousSequence(this.computed.toString());
     }
